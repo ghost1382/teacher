@@ -4071,36 +4071,14 @@ var CourseFields = function CourseFields(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "mt-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Label__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        children: "Description"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("textarea", {
-        name: "description",
-        rows: "5",
-        value: form.description,
-        onChange: function onChange(e) {
-          return setData('description', e.target.value);
+        children: "Content"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_tinymce_tinymce_react__WEBPACK_IMPORTED_MODULE_1__.Editor, {
+        onInit: function onInit(evt, editor) {
+          return editorRef.current = editor;
         },
-        className: "border border-gray-400 p-2 w-full"
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "mt-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Label__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        children: "Image"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-        type: "file",
-        name: "image",
-        onChange: function onChange(e) {
-          return setData('image', e.target.files[0]);
-        }
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-      className: "mt-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Components_Label__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        children: "File"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-        type: "file",
-        name: "file",
-        onChange: function onChange(e) {
-          return setData('file', e.target.files[0]);
+        initialValue: content,
+        init: {
+          height: 500
         }
       })]
     })]
@@ -5287,7 +5265,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
   var auth = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.usePage)().props.auth;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("header", {
-    className: "bg-red-200 p-4 shadow",
+    className: "bg-blue-200 p-4 shadow",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "flex items-center max-w-5xl mx-auto justify-end",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("nav", {
@@ -7152,13 +7130,21 @@ function Login(_ref) {
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
-        className: "flex items-center justify-end mt-4",
-        children: [canResetPassword && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_7__.Link, {
-          href: route('password.request'),
-          className: "underline text-sm text-gray-600 hover:text-gray-900",
-          children: "Forgot your password?"
+        className: "flex items-center justify-between mt-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+          children: ["Don't have an account?", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_7__.Link, {
+            href: route('register'),
+            className: "underline text-sm text-gray-600 hover:text-gray-900",
+            children: "Register here"
+          })]
+        }), canResetPassword && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_7__.Link, {
+            href: route('password.request'),
+            className: "underline text-sm text-gray-600 hover:text-gray-900",
+            children: "Forgot your password?"
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Components_Button__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          className: "ml-4",
+          className: "ml-2",
           processing: processing,
           children: "Log in"
         })]
@@ -7202,7 +7188,8 @@ function Register() {
     name: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    class_id: ''
   }),
       data = _useForm.data,
       setData = _useForm.setData,
@@ -7223,7 +7210,13 @@ function Register() {
 
   var submit = function submit(e) {
     e.preventDefault();
-    post(route('register'));
+    post(route('register'), {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      password_confirmation: data.password_confirmation,
+      class_id: data.class_id
+    });
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Layouts_Guest__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -7287,6 +7280,35 @@ function Register() {
           className: "mt-1 block w-full",
           handleChange: onHandleChange,
           required: true
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "mt-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Components_Label__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          forInput: "class_id",
+          value: "Class"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("select", {
+          id: "class_id",
+          name: "class_id",
+          value: data.class_id,
+          className: "mt-1 block w-full",
+          onChange: onHandleChange,
+          required: true,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+            value: "",
+            children: "Choose a class"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+            value: "s1",
+            children: "S1"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+            value: "s2",
+            children: "S2"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+            value: "s3",
+            children: "S3"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+            value: "master",
+            children: "Master"
+          })]
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "flex items-center justify-end mt-4",
@@ -7827,7 +7849,7 @@ function Welcome(props) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
             href: route('register'),
             className: "ml-4 text-sm text-gray-700 underline",
-            children: "Register"
+            children: "registers"
           })]
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {

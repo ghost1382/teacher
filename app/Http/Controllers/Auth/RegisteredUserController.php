@@ -39,21 +39,24 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'class_id' => 'required|string'
         ]);
-
+    
         $studentUserRole = UserRole::where('name', 'student')->first();
-
+    
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_role_id' => $studentUserRole->id
+            'user_role_id' => $studentUserRole->id,
+            'class_id' => $request->class_id // Add class_id to the create method
         ]);
-
+    
         event(new Registered($user));
-
+    
         Auth::login($user);
-
+    
         return redirect(route('my-courses'));
     }
+    
 }

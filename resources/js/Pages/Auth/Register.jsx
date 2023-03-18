@@ -12,6 +12,7 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        class_id: '',
     });
 
     useEffect(() => {
@@ -26,8 +27,14 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('register'));
+    
+        post(route('register'), {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            password_confirmation: data.password_confirmation,
+            class_id: data.class_id,
+        });
     };
 
     return (
@@ -91,6 +98,25 @@ export default function Register() {
                         handleChange={onHandleChange}
                         required
                     />
+                </div>
+
+                <div className="mt-4">
+                    <Label forInput="class_id" value="Class" />
+
+                    <select
+                        id="class_id"
+                        name="class_id"
+                        value={data.class_id}
+                        className="mt-1 block w-full"
+                        onChange={onHandleChange}
+                        required
+                    >
+                        <option value="">Choose a class</option>
+                        <option value="s1">S1</option>
+                        <option value="s2">S2</option>
+                        <option value="s3">S3</option>
+                        <option value="master">Master</option>
+                    </select>
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
