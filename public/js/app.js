@@ -3989,7 +3989,8 @@ __webpack_require__.r(__webpack_exports__);
   var course = _ref.course;
 
   var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.useForm)({
-    email: ''
+    email: '',
+    class_id: ''
   }),
       data = _useForm.data,
       setData = _useForm.setData,
@@ -4017,6 +4018,20 @@ __webpack_require__.r(__webpack_exports__);
           value: data.email,
           handleChange: function handleChange(e) {
             return setData('email', e.target.value);
+          }
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Label__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          value: "Class ID",
+          forInput: "class_id"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          id: "class_id",
+          name: "class_id",
+          type: "number",
+          placeholder: "Class ID",
+          value: data.class_id,
+          handleChange: function handleChange(e) {
+            return setData('class_id', e.target.value);
           }
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Components_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
