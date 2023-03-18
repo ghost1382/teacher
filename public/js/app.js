@@ -7210,7 +7210,13 @@ function Register() {
 
   var submit = function submit(e) {
     e.preventDefault();
-    post(route('register'));
+    post(route('register'), {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      password_confirmation: data.password_confirmation,
+      class_id: data.class_id
+    });
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_Layouts_Guest__WEBPACK_IMPORTED_MODULE_2__["default"], {

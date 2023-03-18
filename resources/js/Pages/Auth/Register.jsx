@@ -27,8 +27,14 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('register'));
+    
+        post(route('register'), {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            password_confirmation: data.password_confirmation,
+            class_id: data.class_id,
+        });
     };
 
     return (
