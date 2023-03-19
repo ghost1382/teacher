@@ -33,30 +33,31 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'class_id' => 'required|string'
-        ]);
-    
-        $studentUserRole = UserRole::where('name', 'student')->first();
-    
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'user_role_id' => $studentUserRole->id,
-            'class_id' => $request->class_id // Add class_id to the create method
-        ]);
-    
-        event(new Registered($user));
-    
-        Auth::login($user);
-    
-        return redirect(route('my-courses'));
-    }
+  public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        'class_id' => 'required|exists:classes,id', // Validate that the selected class exists in the classes table
+    ]);
+
+    $studentUserRole = UserRole::where('name', 'student')->first();
+
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'user_role_id' => $studentUserRole->id,
+        'class_id' => $request->class_id, // Save the selected class_id to the class_id foreign key column
+    ]);
+
+    event(new Registered($user));
+
+    Auth::login($user);
+
+    return redirect(route('my-courses'));
+}
+
     
 }

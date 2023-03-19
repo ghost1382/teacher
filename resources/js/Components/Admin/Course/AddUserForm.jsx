@@ -1,38 +1,88 @@
-import React from 'react';
-import { useForm } from '@inertiajs/inertia-react';
-
-import ValidationErrors from '@/Components/ValidationErrors';
-import Label from '@/Components/Label';
-import Input from '@/Components/Input';
+import React, { useState, useEffect } from "react";
+import Select from "@/Components/Select";
+import axios from "axios";
 import Button from '@/Components/Button';
 
-export default function({course}) {
-    const { data, setData, post, errors: formErrors } = useForm({
-        email: '',
-        class_id: '',
-    });
+const AddUserForm = ({ courseId }) => {
+  const [classId, setClassId] = useState("");
+  const [users, setUsers] = useState([]);
 
-    return (
-        <form
-            onSubmit={e => {
-                e.preventDefault();
-                post(route('admin.course.user.store', course));
-            }}
-        >
-            <ValidationErrors errors={formErrors} />
-            <div className="flex items-end gap-4">
-                <div>
-                    <Label value="Email" forInput="email" />
-                    <Input id="email" name="email" type="email" placeholder="User's email" value={data.email} handleChange={e => setData('email', e.target.value)}/>
-                </div>
-                <div>
-                    <Label value="Class ID" forInput="class_id" />
-                    <Input id="class_id" name="class_id" type="number" placeholder="Class ID" value={data.class_id} handleChange={e => setData('class_id', e.target.value)} />
-                </div>
-                <Button>
-                    Add User
-                </Button>
-            </div>
-        </form>
-    )
-}
+  const handleClassIdChange = (e) => {
+    setClassId(e.target.value);
+  };
+
+  const handleSubmitAddUser = (e) => {
+    e.preventDefault();
+
+    const selectedClass = `s${classId}`;
+    const url = `http://127.0.0.1:8000/api/courses/${courseId}`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        const course = response.data;
+
+        // Find the class with the selected ID in the course
+        const selectedCourseClass = course.classes.find(
+          (courseClass) => courseClass.id === selectedClass
+        );
+
+        if (selectedCourseClass) {
+          axios
+            .post(`${url}/addUser`, {
+              class_id: selectedClass,
+            })
+            .then((response) => {
+              setUsers([...users, response.data]);
+              setClassId("");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          console.log(`Class ${selectedClass} not found in course`);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    const url = `/api/courses/${courseId}/users`;
+    axios
+      .get(url)
+      .then((response) => {
+        setUsers(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [courseId]);
+
+  return (
+    <div>
+      <h2>Add User</h2>
+      <form onSubmit={handleSubmitAddUser}>
+        <div>
+          <label htmlFor="class_id">Class:</label>
+          <Select
+            name="class_id"
+            id="class_id"
+            value={classId}
+            onChange={handleClassIdChange}
+            options={[
+              { value: "s1", label: "s1" },
+              { value: "s2", label: "s2" },
+              { value: "s3", label: "s3" },
+              { value: "master", label: "Master" },
+            ]}
+          />
+        </div>
+        <Button type="submit">Add User</Button>
+      </form>
+    </div>
+  );
+};
+
+export default AddUserForm;
