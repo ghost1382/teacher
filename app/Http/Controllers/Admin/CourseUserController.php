@@ -11,15 +11,21 @@ use Illuminate\Support\Facades\Redirect;
 class CourseUserController extends Controller
 {
     public function store(Request $request, Course $course)
-    {
-        $request->validate([
-            'email' => ['required', 'email', 'exists:users,email']
-        ]);
+{
+    $request->validate([
+        'class_id' => ['required', 'exists:courses,class_id'],
+    ]);
 
-        $course->addUser($request->get('email'));
+    $class_id = $request->get('class_id');
+    $users = User::where('class_id', $class_id)->get();
 
-        return Redirect::route('admin.course.edit', $course);
+    foreach ($users as $user) {
+        $course->addUser($user->email);
     }
+
+    return Redirect::route('admin.course.edit', $course);
+}
+
 
     public function destroy(Request $request, Course $course, User $user)
     {

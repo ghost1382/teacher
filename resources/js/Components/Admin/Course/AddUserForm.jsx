@@ -8,7 +8,8 @@ import Button from '@/Components/Button';
 
 export default function({course}) {
     const { data, setData, post, errors: formErrors } = useForm({
-        email: ''
+        email: '',
+        class_id: '',
     });
 
     return (
@@ -23,6 +24,10 @@ export default function({course}) {
                 <div>
                     <Label value="Email" forInput="email" />
                     <Input id="email" name="email" type="email" placeholder="User's email" value={data.email} handleChange={e => setData('email', e.target.value)}/>
+                </div>
+                <div>
+                    <Label value="Class ID" forInput="class_id" />
+                    <Input id="class_id" name="class_id" type="number" placeholder="Class ID" value={data.class_id} handleChange={e => setData('class_id', e.target.value)} />
                 </div>
                 <Button>
                     Add User
