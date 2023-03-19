@@ -51,6 +51,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'isAdmin
 
     Route::resource('course.user', App\Http\Controllers\Admin\CourseUserController::class)->only(['store', 'destroy']);
 });
+Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/courses/{id}', [CourseController::class, 'show']);
+Route::post('/courses', [CourseController::class, 'store']);
+Route::put('/courses/{id}', [CourseController::class, 'update']);
+Route::delete('/courses/{id}', [CourseController::class, 'destroy']);
+
 
 
 
