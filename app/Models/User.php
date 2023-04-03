@@ -46,7 +46,7 @@ class User extends Authenticatable
 
     /**
      * Is the User an Admin?
-     *
+     * 
      * @return boolean
      */
     public function isAdmin()
@@ -72,7 +72,7 @@ class User extends Authenticatable
     public function completeLesson(Lesson $lesson)
     {
         $hasCompletedLesson = $this->hasCompleted($lesson);
-
+        
         if (!$hasCompletedLesson) {
             $this->completedLessons()->attach($this);
         }
@@ -82,9 +82,8 @@ class User extends Authenticatable
     {
         return $this->completedLessons->contains($lesson->id);
     }
-
-    public function enrolledCourses()
-    {
-        return $this->hasMany(CourseUser::class, 'user_id');
-    }
+    public function classes()
+{
+    return $this->belongsTo(Classes::class, 'class_id');
+}
 }

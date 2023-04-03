@@ -6,13 +6,13 @@ import Label from '@/Components/Label';
 import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
-export default function Register() {
+export default function Register({ classes }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         password: '',
         password_confirmation: '',
-        class_id: '',
+        class_id: ''
     });
 
     useEffect(() => {
@@ -27,14 +27,8 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-    
-        post(route('register'), {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            password_confirmation: data.password_confirmation,
-            class_id: data.class_id,
-        });
+
+        post(route('register'));
     };
 
     return (
@@ -101,21 +95,20 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <Label forInput="class_id" value="Class" />
+                    <Label forInput="class_id" value="Select a class" />
 
                     <select
-                        id="class_id"
                         name="class_id"
                         value={data.class_id}
                         className="mt-1 block w-full"
                         onChange={onHandleChange}
                         required
                     >
-                        <option value="">Choose a class</option>
-                        <option value="s1">S1</option>
-                        <option value="s2">S2</option>
-                        <option value="s3">S3</option>
-                        <option value="master">Master</option>
+                        <option value="">Select a class</option>
+                        <option value="1">S1</option>
+                        <option value="2">S2</option>
+                        <option value="3">S3</option>
+                        <option value="4">Master</option>
                     </select>
                 </div>
 
@@ -128,7 +121,7 @@ export default function Register() {
                         Register
                     </Button>
                 </div>
-            </form>
-        </Guest>
-    );
+      </form>
+    </Guest>
+  );
 }
