@@ -1,14 +1,23 @@
-import React from "react";
+import React from 'react';
 
-const Select = ({ options, ...rest }) => {
+const Select = ({ label, options, ...rest }) => {
   return (
-    <select {...rest}>
-      {options.map((option, index) => (
-        <option key={index} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
+    <div className="mb-4">
+      <label htmlFor={rest.name} className="block text-gray-700 font-bold mb-2">
+        {label}
+      </label>
+      <select
+        {...rest}
+        className="select1"
+      >
+        <option value="">Select an option</option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 
