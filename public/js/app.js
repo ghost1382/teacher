@@ -5303,7 +5303,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
   var auth = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.usePage)().props.auth;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("header", {
-    className: "bg-blue-300 p-4 shadow",
+    className: "bg-red-200 p-4 shadow",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "flex items-center max-w-5xl mx-auto justify-end",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("nav", {
@@ -5312,23 +5312,17 @@ __webpack_require__.r(__webpack_exports__);
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
               href: route('my-courses'),
-              className: "text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-800",
               children: "My Courses"
             })
-          }), auth.user && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("form", {
-              method: "post",
-              action: route('logout'),
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("button", {
-                type: "submit",
-                className: "inline-flex items-center px-3 py-2 border border-blue-500 text-sm leading-4 font-medium rounded-md text-red-500 bg-white hover:bg-red-100 hover:text-white focus:outline-none transition ease-in-out duration-150",
-                children: "Logout"
-              })
-            })
+          }), auth.user && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
+            href: "/logout",
+            method: "post",
+            as: "button",
+            type: "button",
+            children: "Logout"
           }), !auth.user && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("li", {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
               href: route('login'),
-              className: "text-gray-600 hover:text-gray-800 border-b-2 border-transparent hover:border-gray-800",
               children: "Login"
             })
           })]
