@@ -32056,24 +32056,45 @@ select {
 }
 
 .button {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background-color: #ca995d;
-  border: 1px solid transparent;
-  border-radius: 0.375rem;
-  font-weight: 600;
-  font-size: 0.75rem;
+  display: inline-block;
+  padding: .5rem .75rem;
+  border-radius: 9999px;
+  color: #fff;
+  font-size: .875rem;
+  letter-spacing: .1rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #fffffffc;
-  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-      box-shadow 0.15s ease-in-out;
+  background-color: #4A5568;
+  border: 1px solid #4A5568;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .button:hover {
-  background-color: #a45e25;
+  background-color: #2D3748;
+  border-color: #2D3748;
 }
+
+.button:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #83909d;
+  transition: all .3s;
+  border-radius: 9999px;
+  z-index: -1;
+}
+
+.button:hover:before {
+  width: 100%;
+}
+
+/* """""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""" */
 
 .table {
   background-color: #dedada;
