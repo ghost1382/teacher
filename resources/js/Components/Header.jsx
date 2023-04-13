@@ -7,7 +7,7 @@ export default function() {
     const { auth } = usePage().props
 
     return (    
-        <header className="bg-red-200 p-4 shadow">
+        <header className="bg-gray-200 p-4 shadow">
             <div className="flex items-center max-w-5xl mx-auto justify-end">
                 <nav>
                     <ul className="flex items-center gap-4">

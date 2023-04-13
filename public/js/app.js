@@ -5388,7 +5388,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__() {
   var auth = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.usePage)().props.auth;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("header", {
-    className: "bg-red-200 p-4 shadow",
+    className: "bg-gray-200 p-4 shadow",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
       className: "flex items-center max-w-5xl mx-auto justify-end",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("nav", {
@@ -5673,12 +5673,12 @@ __webpack_require__.r(__webpack_exports__);
   var onClick = _ref.onClick,
       children = _ref.children,
       isActive = _ref.isActive;
-  var className = 'btn border-2 border-yellow-700 px-4 py-2 rounded transition-transform duration-300 ease-in-out transform-gpu ';
+  var className = 'btn border-2 border-gray-600 px-4 py-2 rounded transition-transform duration-300 ease-in-out transform-gpu ';
 
   if (isActive) {
-    className += ' bg-yellow-700 text-white shadow-md hover:scale-105';
+    className += ' bg-gray-600 text-white shadow-md hover:scale-105';
   } else {
-    className += ' bg-white hover:bg-yellow-100 hover:shadow-md';
+    className += ' bg-gray-100 hover:bg-gray-300 hover:shadow-md';
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
