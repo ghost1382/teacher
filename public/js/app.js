@@ -3999,9 +3999,13 @@ function AddUserToCourse(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
     onSubmit: function onSubmit(e) {
       e.preventDefault();
-      post(route('admin.course.user.store', course))["catch"](function (error) {
-        if (error.response.status === 422) {
-          setFormErrors(error.response.data.errors);
+      post(route('admin.course.user.store', course), data, {
+        onSuccess: function onSuccess() {
+          alert('User added successfully');
+          setData('class_id', '');
+        },
+        onError: function onError(error) {
+          setData('errors', error.response.data.errors);
         }
       });
     },
@@ -5213,7 +5217,7 @@ var EditCourseForm = function EditCourseForm(_ref) {
         children: "Update"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
         href: route('admin.course.index'),
-        className: "inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-50 active:bg-gray-100 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition relative overflow-hidden",
+        className: "a inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-50 active:bg-gray-100 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 disabled:opacity-25 transition relative overflow-hidden",
         children: ["Cancel", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
           className: "cancel-link-after"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {

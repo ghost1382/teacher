@@ -13,15 +13,19 @@ export default function AddUserToCourse({ course }) {
 
     return (
         <form
-            onSubmit={e => {
-                e.preventDefault();
-                post(route('admin.course.user.store', course))
-                    .catch((error) => {
-                        if (error.response.status === 422) {
-                            setFormErrors(error.response.data.errors);
-                        }
-                    });
-            }}
+        onSubmit={(e) => {
+            e.preventDefault();
+            post(route('admin.course.user.store', course), data, {
+                onSuccess: () => {
+                    alert('User added successfully');
+                    setData('class_id', '');
+                },
+                onError: (error) => {
+                    setData('errors', error.response.data.errors);
+                },
+            });
+        }}
+        
         >
             <ValidationErrors errors={formErrors} />
             <div className="flex items-end gap-4">

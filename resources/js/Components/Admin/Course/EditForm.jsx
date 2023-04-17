@@ -5,7 +5,7 @@ import EditCourseForm from '@/Components/EditCourseForm';
 import ValidationErrors from '@/Components/ValidationErrors';
 
 export default function EditForm({ course }) {
-    const { data, setData, put, errors: formErrors } = useForm({
+    const { data, setData, put, formErrors: formErrors } = useForm({
         title: course.title,
         file: null,
       });
@@ -24,7 +24,7 @@ export default function EditForm({ course }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <ValidationErrors errors={errors} />
+      <ValidationErrors errors={formErrors} />
       <EditCourseForm course={course} handleSubmit={handleSubmit} csrfToken={csrfToken} />
     </form>
   );
