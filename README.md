@@ -50,6 +50,8 @@
     <li>Create a <code>.env</code> file by copying the <code>.env.example</code> file and updating it with your database credentials</li>
     <li>Run the migrations using <code>php artisan migrate</code></li>
     <li>Start the development server using <code>php artisan serve</code> and <code>npm run dev</code></li>
+<li>  for linking the storage to public<code>php artisan storage:link</code></li>
+<li> removing the link<code>rm -r public/storage</code></li>
 </ol>
 
 <h2>Contribution Guidelines</h2>
