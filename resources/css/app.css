@@ -2,27 +2,33 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+
+
 .button {
   display: inline-block;
-  padding: .5rem .75rem;
-  border-radius: 9999px;
+  padding: .1rem .5rem; /* Updated padding */
+  border-radius: 10rem;
   color: #fff;
-  font-size: .875rem;
-  letter-spacing: .1rem;
   text-transform: uppercase;
-  background-color: #4A5568;
-  border: 1px solid #4A5568;
+  font-size: 1rem;
+  letter-spacing: .15rem;
   transition: all .3s;
   position: relative;
   overflow: hidden;
   z-index: 1;
 }
 
-.button:hover {
-  background-color: #2D3748;
-  border-color: #2D3748;
+.button:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(59, 138, 158);
+  border-radius: 10rem;
+  z-index: -2;
 }
-
 .button:before {
   content: '';
   position: absolute;
@@ -30,18 +36,19 @@
   left: 0;
   width: 0%;
   height: 100%;
-  background-color: #83909d;
+  background-color: rgb(3, 38, 45);
   transition: all .3s;
-  border-radius: 9999px;
+  border-radius: 10rem;
   z-index: -1;
 }
-
+.button:hover {
+  color: #fff;
+}
 .button:hover:before {
   width: 100%;
 }
-/* """""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""" */
- 
+
+
   
   .table {
     background-color: #dedada;
@@ -161,4 +168,51 @@
   width: 100%;
   height: 100%;
   cursor: pointer;
+}
+.cancel-link-before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  border-top: 2px solid #c53030;
+  transform: translateX(-100%);
+  transition: width 0.3s ease-out;
+}
+
+.cancel-link-after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100%;
+  border-top: 2px solid #c53030;
+  transform: translateX(100%);
+  transition: width 0.3s ease-out;
+}
+
+a:hover .cancel-link-before {
+  width: 100%;
+}
+
+a:hover .cancel-link-after {
+  width: 100%;
+}
+
+a:focus-visible .cancel-link-before,
+a:focus-visible .cancel-link-after {
+  width: 100%;
+}
+
+a:hover {
+  color: #000000;
+  background-color: #c53030;
+  border-color: #c53030;
+}
+
+a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.5);
 }

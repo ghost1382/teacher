@@ -6,7 +6,7 @@ export default function Button({ type = 'submit', className = '', processing, ch
             type={type}
             className={
                 `button ${
-                    processing && 'opacity-25'
+                    processing && 'opacity-20'
                 } ` + className
             }
             disabled={processing}
@@ -15,3 +15,4 @@ export default function Button({ type = 'submit', className = '', processing, ch
         </button>
     );
 }
+ 

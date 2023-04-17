@@ -1,34 +1,31 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import { useForm } from '@inertiajs/inertia-react';
+import EditCourseForm from '@/Components/EditCourseForm';
 
-import CourseFields from './CourseFields';
 import ValidationErrors from '@/Components/ValidationErrors';
-import Button from '@/Components/Button';
 
-export default function({course}) {
-    const { data, setData, put, transform, errors: formErrors } = useForm({
-        title: course.title
+export default function EditForm({ course }) {
+    const { data, setData, put, errors: formErrors } = useForm({
+        title: course.title,
+        file: null,
+      });
+
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    put(route('admin.courses.update', course.id), {
+      preserveScroll: true,
+      onSuccess: () => {
+        alert('Course updated successfully');
+      },
     });
+  }
 
-    let editorRef = useRef(null);
-
-    transform(data => ({
-        ...data,
-        content: editorRef.current.getContent()
-    }));
-
-    return (
-        <form
-            className="mb-8"
-            onSubmit={e => {
-                e.preventDefault();
-                put(route('admin.course.update', course));
-            }}>
-            <ValidationErrors errors={formErrors} />
-            <CourseFields form={data} setData={setData} content={course.content} editorRef={editorRef}/>
-            <Button className="mt-4">
-                Save Changes
-            </Button>
-        </form>
-    )
+  return (
+    <form onSubmit={handleSubmit}>
+      <ValidationErrors errors={errors} />
+      <EditCourseForm course={course} handleSubmit={handleSubmit} csrfToken={csrfToken} />
+    </form>
+  );
 }
