@@ -32057,28 +32057,23 @@ select {
 
 .button {
   display: inline-block;
-  padding: .1rem .5rem; /* Updated padding */
-  border-radius: 10rem;
+  padding: .5rem .75rem;
+  border-radius: 9999px;
   color: #fff;
+  font-size: .875rem;
+  letter-spacing: .1rem;
   text-transform: uppercase;
-  font-size: 1rem;
-  letter-spacing: .15rem;
+  background-color: rgb(9, 53, 50);
+  border: 1px solid #4A5568;
   transition: all .3s;
   position: relative;
   overflow: hidden;
   z-index: 1;
 }
 
-.button:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(59, 138, 158);
-  border-radius: 10rem;
-  z-index: -2;
+.button:hover {
+  background-color: #273b61c5;
+  border-color: #2d3d59;
 }
 
 .button:before {
@@ -32088,19 +32083,18 @@ select {
   left: 0;
   width: 0%;
   height: 100%;
-  background-color: rgb(3, 38, 45);
+  background-color: #83909d;
   transition: all .3s;
-  border-radius: 10rem;
+  border-radius: 9999px;
   z-index: -1;
-}
-
-.button:hover {
-  color: #fff;
 }
 
 .button:hover:before {
   width: 100%;
 }
+
+/* """""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""" */
 
 .table {
   background-color: #dedada;
@@ -32222,52 +32216,102 @@ p {
   cursor: pointer;
 }
 
-.cancel-link-before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  border-top: 2px solid #c53030;
-  transform: translateX(-100%);
-  transition: width 0.3s ease-out;
-}
+/* donwload butoon */
 
-.cancel-link-after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 100%;
-  border-top: 2px solid #c53030;
-  transform: translateX(100%);
-  transition: width 0.3s ease-out;
-}
-
-.a:hover .cancel-link-before {
-  width: 100%;
-}
-
-.a:hover .cancel-link-after {
-  width: 100%;
-}
-
-.a:focus-visible .cancel-link-before,
-.a:focus-visible .cancel-link-after {
-  width: 100%;
-}
-
-.a:hover {
-  color: #000000;
-  background-color: #c53030;
-  border-color: #c53030;
-}
-
-.a:focus-visible {
+.button1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #1c6e63;
+  border-radius: 100%;
+  color: #fff;
+  transition: background-color 0.3s, width 0.3s ease-out, height 0.3s ease-out;
+  border: none;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.5);
+  text-decoration: none;
+}
+
+.button1:hover {
+  background-color: white;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+  color: #1c6e63;
+  transition: 0.3s;
+  transition-delay: 0.1s; /* add a delay to the transition effect  because of the shaking mouse probleme */
+  width: 100px;
+  height: 50px;
+}
+
+/* .icon:hover {
+  transform: translateX(10px);
+  transition: transform 0.3s;
+  margin-left: -5px;
+} */
+
+.button1:active {
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  transition: 0.05s;
+}
+
+.icon {
+  font-size: 24px;
+  transition: transform 0.3s ease-out, margin-left 0.3s ease-out;
+  margin-left: 0;
+}
+
+/* remove */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remove_button {
+  display: inline-block;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 0;
+  color: #fff;
+  background-color: #8e1f13;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.rmv_icon {
+  display: inline-block;
+  width: 100px;
+  height: 90px;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.remove_button:hover {
+  opacity: 0.9;
+}
+
+.remove_button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -50%;
+  bottom: 0;
+  z-index: 0;
+  width: 100%;
+  background-color: rgba(210, 118, 118, 0.411);
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.remove_button:hover:before {
+  opacity: 1;
+  right: 0;
 }
 
 @media (min-width: 640px) {
@@ -188629,4 +188673,5 @@ p {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
+
 

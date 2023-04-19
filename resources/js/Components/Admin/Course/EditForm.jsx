@@ -1,31 +1,36 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useForm } from '@inertiajs/inertia-react';
-import EditCourseForm from '@/Components/EditCourseForm';
-
-import ValidationErrors from '@/Components/ValidationErrors';
-
+import axios from 'axios';
 export default function EditForm({ course }) {
-    const { data, setData, put, formErrors: formErrors } = useForm({
-        title: course.title,
-        file: null,
-      });
+  const { data, setData, put, errors } = useForm({
+    title: course.title,
+    file: null,
+  });
 
-  const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData(name, value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    put(route('admin.courses.update', course.id), {
-      preserveScroll: true,
-      onSuccess: () => {
+
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('file', data.file);
+
+    axios
+      .put(`/admin/courses/${course.id}`, formData)
+      .then((response) => {
+        console.log(response.data);
         alert('Course updated successfully');
-      },
-    });
-  }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ValidationErrors errors={formErrors} />
-      <EditCourseForm course={course} handleSubmit={handleSubmit} csrfToken={csrfToken} />
-    </form>
+   <div/>
   );
 }

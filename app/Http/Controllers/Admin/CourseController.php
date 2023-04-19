@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateCourseRequest;
 
 class CourseController extends Controller
 {
@@ -21,46 +21,24 @@ class CourseController extends Controller
     }
 
     public function edit(Course $course)
-{
-    return Inertia::render('Admin/Course/Edit', [
-        'course' => $course,
-        'modules' => $course->modules,
-        'users' => $course->users
-    ]);
-}
-
-public function update(UpdateCourseRequest $request, Course $course)
-{
-    $data = $request->validated();
-    
-    if ($request->hasFile('file')) {
-        Storage::disk('public')->delete($course->file_path);
-        $file = $request->file('file');
-        $file_name = time() . '_' . $file->getClientOriginalName();
-        $file_path = $file->storeAs('public/files', $file_name);
-        $data['file_path'] = str_replace('public/', '', $file_path);
-        $data['file_name'] = $file_name;
+    {
+        return Inertia::render('Admin/Course/Edit', [
+            'course' => $course,
+            'modules' => $course->modules,
+            'users' => $course->users
+        ]);
     }
-
-    $course->update($data);
-
-    return redirect()->route('admin.course.index')->with('success', 'Course updated successfully');
-}
-
-
-
 
     public function create()
     {
-        return Inertia::render('Admin/Course/Create', [
-            'error' => session('error')
-        ]);
+        return Inertia::render('Admin/Course/Create');
+        
     }
-    
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => ['required', 'string', 'regex:/^[^0-9]/'],
+            'title' => 'required',
             'file' => 'required|file|max:2048',
         ]);
     
@@ -72,7 +50,7 @@ public function update(UpdateCourseRequest $request, Course $course)
         $existingCourse = Course::where('title', $validatedData['title'])->first();
     
         if ($existingCourse) {
-            return redirect()->back()->withErrors(['title' => 'A course with the same title already exists'])->withInput();
+            return redirect()->back()->with('error', 'A course with the same title already exists');
         }
     
         $course = Course::create([
@@ -83,10 +61,8 @@ public function update(UpdateCourseRequest $request, Course $course)
     
         $fileUrl = Storage::url($file_path);
     
-        return redirect()->route('admin.course.index')->with('success', 'File uploaded successfully');
+        return redirect()->back()->with('success', 'File uploaded successfully');
     }
-    
-    
     
 
     public function downloadFile($id)
@@ -101,7 +77,12 @@ public function update(UpdateCourseRequest $request, Course $course)
 
 
 
-   
+    public function update(UpdateCourseRequest $request, Course $course)
+    {
+        $course->update($request->all());
+
+        return Redirect::route('admin.course.index', $course);
+    }
 
     public function destroy(Request $request, Course $course)
     {
@@ -129,14 +110,6 @@ public function update(UpdateCourseRequest $request, Course $course)
     
 
     
-    public function show(Course $course)
-    {
-        return Inertia::render('Admin/Course/Show', [
-            'course' => $course,
-            'modules' => $course->modules,
-            'users' => $course->users
-        ]);
-    }
-    
+ 
 
 }

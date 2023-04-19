@@ -3,33 +3,33 @@ import React, { useRef } from 'react'
 import { useForm } from '@inertiajs/inertia-react'
 import CourseFields from '../../../Components/Admin/Course/CourseFields';
 import Authenticated from '@/Layouts/Authenticated';
+import ValidationErrors from '@/Components/ValidationErrors';
 
 const Create = ({auth, errors}) => {
-    const { data, setData, post, transform } = useForm({
+	const { data, setData, post, transform, errors: formErrors } = useForm({
         title: ''
     });
 
-    let editorRef = useRef(null);
+	let editorRef = useRef(null);
 
-    transform(data => ({
-        ...data,
-        content: editorRef.current.getContent()
-    }));
+	transform(data => ({
+		...data,
+		content: editorRef.current.getContent()
+	}));
 
-    return (
-        <Authenticated auth={auth} header={<h2>Create Course</h2>}>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                post(route('admin.course.store'));
-            }}>
-                {errors.title && (
-                    <div className="text-red-500 mb-4">{errors.title}</div>
-                )}
-                <CourseFields form={data} setData={setData} editorRef={editorRef}/>
-               
-            </form>
-        </Authenticated>
-    )
-}
+	return (
+		<Authenticated auth={auth} errors={errors} header={<h2>Create Course</h2>}>
+			<form onSubmit={(e) => {
+				e.preventDefault();
+				post(route('admin.course.store'));
+			}}>
+				<ValidationErrors errors={formErrors} />
+
+				<CourseFields form={data} setData={setData} editorRef={editorRef}/>
+			
+			</form>
+		</Authenticated>
+	)
+}	
 
 export default Create;
