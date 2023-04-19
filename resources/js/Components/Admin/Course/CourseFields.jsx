@@ -1,27 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
+import CourseForm from '@/Components/CourseForm';
+import axios from 'axios';
 
-import {Editor} from '@tinymce/tinymce-react';
-import Input from '@/Components/Input';
-import Label from '@/Components/Label';
 
-const CourseFields = ({form, setData, editorRef, content}) => {
-    
+const CreateCourse = () => {
+    const [form, setForm] = useState({
+        title: '',
+        file: null
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('title', form.title);
+        formData.append('file', form.file);
+
+        axios.post('/admin/courses', formData)
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
     return (
-        <>
-            <Label forInput="title">Title</Label>
-            <Input type="text" name="title" value={form.title} handleChange={e => setData('title', e.target.value)} />
-
-            <div className="mt-4">
-                <Label>Content</Label>
-                <Editor
-                    onInit={(evt, editor) => editorRef.current = editor}
-                    initialValue={content}
-                    init={{
-                        height: 500,
-                    }}/>
-            </div>
-        </>
+        <div>
+            <h1>Create Course</h1>
+            <CourseForm form={form} setForm={setForm} handleSubmit={handleSubmit} />
+        </div>
     )
 }
 
-export default CourseFields;
+export default CreateCourse;

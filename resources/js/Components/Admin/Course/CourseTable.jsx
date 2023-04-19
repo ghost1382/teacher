@@ -26,7 +26,7 @@ const CourseTable = ({courses}) => {
                             <div className="flex flex-wrap gap-4 items-center">
                                 <Link href={route('course.show', course)}>View</Link>
                                 <Link href={route('admin.course.edit', course)}>
-                                    Edit
+                                  Add
                                 </Link>
                                 <form onSubmit={e => {
                                     e.preventDefault();

@@ -1,34 +1,36 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import { useForm } from '@inertiajs/inertia-react';
+import axios from 'axios';
+export default function EditForm({ course }) {
+  const { data, setData, put, errors } = useForm({
+    title: course.title,
+    file: null,
+  });
 
-import CourseFields from './CourseFields';
-import ValidationErrors from '@/Components/ValidationErrors';
-import Button from '@/Components/Button';
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData(name, value);
+  };
 
-export default function({course}) {
-    const { data, setData, put, transform, errors: formErrors } = useForm({
-        title: course.title
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    let editorRef = useRef(null);
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('file', data.file);
 
-    transform(data => ({
-        ...data,
-        content: editorRef.current.getContent()
-    }));
+    axios
+      .put(`/admin/courses/${course.id}`, formData)
+      .then((response) => {
+        console.log(response.data);
+        alert('Course updated successfully');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    return (
-        <form
-            className="mb-8"
-            onSubmit={e => {
-                e.preventDefault();
-                put(route('admin.course.update', course));
-            }}>
-            <ValidationErrors errors={formErrors} />
-            <CourseFields form={data} setData={setData} content={course.content} editorRef={editorRef}/>
-            <Button className="mt-4">
-                Save Changes
-            </Button>
-        </form>
-    )
+  return (
+   <div/>
+  );
 }

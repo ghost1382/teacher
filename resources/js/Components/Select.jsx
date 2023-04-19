@@ -1,19 +1,24 @@
 import React from 'react';
 
-export default function Select({ id, name, value, options, handleChange }) {
+const Select = ({ label, options, ...rest }) => {
   return (
-    <select
-      id={id}
-      name={name}
-      value={value}
-      onChange={handleChange}
-      className="form-select block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-    >
-      {options.map(option => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
+    <div className="mb-4">
+      <label htmlFor={rest.name} className="block text-gray-700 font-bold mb-2">
+        {label}
+      </label>
+      <select
+        {...rest}
+        className="select1"
+      >
+        <option value="">Select an option</option>
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
   );
-}
+};
+
+export default Select;
