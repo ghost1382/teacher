@@ -25,7 +25,7 @@ class UpdateCourseRequest extends FormRequest
     {
         return [
             'title' => 'string|required',
-            'file' => 'nullable|file|mimes:pdf|max:10240' // example validation rules for the file field
+            'content' => 'string',
         ];
     }
 }
