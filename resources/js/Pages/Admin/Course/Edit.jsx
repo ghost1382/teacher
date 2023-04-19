@@ -2,7 +2,7 @@ import Authenticated from '@/Layouts/Authenticated';
 import React, {useState} from 'react';
 
 import EditForm from '@/Components/Admin/Course/EditForm';
-import Modules from '@/Components/Admin/Course/Modules';
+
 import Users from '@/Components/Admin/Course/Users';
 import Tabs from '@/Components/Tabs';
 import Tab from '@/Components/Tab';
