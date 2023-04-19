@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateCourseRequest;
 
 class CourseController extends Controller
 {
@@ -81,7 +81,7 @@ class CourseController extends Controller
     {
         $course->update($request->all());
 
-        return Redirect::route('admin.course.edit', $course);
+        return Redirect::route('admin.course.index', $course);
     }
 
     public function destroy(Request $request, Course $course)

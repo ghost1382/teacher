@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('course.module.lesson', App\Http\Controllers\Front\LessonController::class)->only(['show']);
     Route::get('/my-courses', [App\Http\Controllers\Front\MyCoursesController::class, 'show'])->name('my-courses');
     Route::post('/lesson/{lesson}/user/{user}', [App\Http\Controllers\Front\LessonUserController::class, 'store'])->name('lesson.user.store');
+    Route::match(['PUT', 'POST'], '/admin/courses', [App\Http\Controllers\Admin\CourseController::class, 'store'])->name('admin.courses.store');
     Route::put('/admin/courses', [App\Http\Controllers\Admin\CourseController::class, 'store'])->name('admin.courses.store');
     Route::post('/admin/course/{course}/user', [App\Http\Controllers\Admin\CourseUserController::class, 'store'])->name('admin.course.user.store');
     Route::get('/admin/course/{course}/users', [App\Http\Controllers\Admin\CourseUserController::class, 'index'])
