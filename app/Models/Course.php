@@ -29,17 +29,16 @@ class Course extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('class_id');
     }
-
-    public function addUser($class_id)
+    
+    public function addUser(User $user, $class_id)
     {
-        $users = User::where('class_id', $class_id)->get();
-
-        foreach ($users as $user) {
+        if (!$this->users->contains($user)) { // Check if the user is already enrolled
             $this->users()->attach($user->id, ['class_id' => $class_id]);
         }
     }
+    
 
     public function removeUser($user)
     {
