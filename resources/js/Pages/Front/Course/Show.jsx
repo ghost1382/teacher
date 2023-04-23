@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '@/Layouts/Layout';
-import ModuleList from '@/Components/Front/Module/ModuleList';
+
 import { Link } from '@inertiajs/inertia-react';
 
 export default function ({ course, modules }) {
@@ -14,20 +14,17 @@ export default function ({ course, modules }) {
         <h1 className="text-3xl font-bold mb-4">{course.title}</h1>
         <div className="prose mb-8" dangerouslySetInnerHTML={{ __html: course.content }}></div>
 
-        <div>
-          <h2 className="text-2xl font-bold mb-2">Modules</h2>
-          <ModuleList modules={modules} course={course} />
-        </div>
+       
 
         {fileUrl && (
-    <div>
-        <h2 className="text-2xl font-bold mb-2">Download File</h2>
-        <a href={fileUrl} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Download
-        </a>
-    </div>
-)}
+         
+            <a href={fileUrl} className="button1" download>
+              <div className="icon">
+                <i className="fa fa-floppy-o"></i>
+              </div>
+            </a>
+        )}
       </div>
     </Layout>
-  )
+  );
 }

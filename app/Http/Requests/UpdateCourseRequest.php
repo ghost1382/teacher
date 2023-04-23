@@ -25,7 +25,7 @@ class UpdateCourseRequest extends FormRequest
     {
         return [
             'title' => 'string|required',
-            'content' => 'string',
+            'files' => 'string',
         ];
     }
 }
