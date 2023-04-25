@@ -25,10 +25,11 @@ class AdminSeeder extends Seeder
         $adminUserRole = UserRole::where('name', 'admin')->first();
 
         foreach($users as $name => $email) {
+            $password='muhammed123';
             User::create([
                 'email' => $email,
                 'name' => $name,
-                'password' => Hash::make('password'),
+                'password' => Hash::make($password),
                 'user_role_id' => $adminUserRole->id,
             ]);
         }
