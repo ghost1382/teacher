@@ -30,7 +30,7 @@ const Trigger = ({ children }) => {
     );
 };
 
-const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-white', children }) => {
+const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-blue-100', children }) => {
     const { open, setOpen } = useContext(DropDownContext);
 
     let alignmentClasses = 'origin-top';
@@ -76,13 +76,13 @@ const Content = ({ align = 'right', width = '48', contentClasses = 'py-1 bg-whit
 const DropdownLink = ({ href, method = 'post', as = 'a', children }) => {
     return (
         <Link
-            href={href}
-            method={method}
-            as={as}
-            className="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-        >
-            {children}
-        </Link>
+        href={href}
+        method={method}
+        as={as}
+        className="block w-full px-4 py-2 text-left text-sm leading-5 text-white border border-gray-300 rounded-md shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-100 transition duration-150 ease-in-out sm:text-gray-500 sm:hover:text-gray-700 bg-gradient-to-br from-blue-100 to-blue-200"
+      >
+        {children}
+      </Link>
     );
 };
 

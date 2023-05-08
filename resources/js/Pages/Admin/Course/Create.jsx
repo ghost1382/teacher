@@ -26,7 +26,7 @@ const Create = ({auth, errors}) => {
 				<ValidationErrors errors={formErrors} />
 
 				<CourseFields form={data} setData={setData} editorRef={editorRef}/>
-				<Button className="mt-4">Create</Button>
+			
 			</form>
 		</Authenticated>
 	)

@@ -1,15 +1,13 @@
 {
     "private": true,
     "scripts": {
-       "dev": "npm run development --watch",
+        "dev": "npm run development --watch",
         "development": "mix",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production"
-  
-    
     },
     "devDependencies": {
         "@babel/preset-react": "^7.13.13",
@@ -34,6 +32,7 @@
         "@inertiajs/inertia": "^0.10.1",
         "@inertiajs/inertia-react": "^0.7.1",
         "@inertiajs/progress": "^0.2.6",
+        "@react-hook/media-query": "^1.1.1",
         "caniuse-lite": "^1.0.30001466"
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreCourseRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateCourseRequest;
 
 class CourseController extends Controller
@@ -31,56 +32,74 @@ class CourseController extends Controller
     public function create()
     {
         return Inertia::render('Admin/Course/Create');
-        
     }
 
-    public function store(StoreCourseRequest $request)
+    public function store(Request $request)
     {
-        Course::create($request->all());
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'file' => 'required|file|max:2048',
+        ]);
+    
+        $file = $request->file('file');
+        $file_name = time() . '_' . $file->getClientOriginalName();
+        $file_path = $file->storeAs('public/files', $file_name);
+    
+        // Check if a course with the same title already exists
+        $existingCourse = Course::where('title', $validatedData['title'])->first();
+    
+        if ($existingCourse) {
+            return redirect()->back()->with('error', 'A course with the same title already exists');
+        }
+    
+        $course = Course::create([
+            'title' => $validatedData['title'],
+            'file_name' => $file_name,
+            'file_path' => str_replace('public/', '', $file_path),
+        ]);
+    
+        $fileUrl = Storage::url($file_path);
+    
+        return redirect()->back()->with('success', 'File uploaded successfully');
+    }
 
-        return Redirect::route('admin.course.index');
+    public function downloadFile($id)
+    {
+        $course = Course::findOrFail($id);
+        $file_path = Storage::disk('public')->path($course->file_path);
+        return response()->download($file_path, $course->file_name);
+    }
+    public function update(Request $request, Course $course)
+    {
+        // Validate the request data
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:500',
-            'image' => 'required|file|max:1024', // Add validation for the image file
-            'file' => 'required|file|max:1024', // Add validation for the uploaded file
+            'file' => 'nullable|file|max:2048', // Only allow PDF files with max size of 2MB
         ]);
-    
-        $course = new Course();
+        
+        // Update the course with the title
         $course->title = $request->title;
-        $course->description = $request->description;
     
-        // Handle the image upload
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images/courses'), $filename);
-            $course->image_path = 'images/courses/' . $filename;
-        }
-    
-        // Handle the file upload
+        // Check if a file was uploaded
         if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('files/courses'), $filename);
-            $course->file_path = 'files/courses/' . $filename;
+            // Delete the old file if it exists
+            Storage::delete($course->file_path);
+    
+            // Store the new file and get the file path
+            $file_path = $request->file('file')->store('public/files');
+    
+            // Update the course with the new file path
+            $course->file_path = str_replace('public/', '', $file_path);
+            $course->file_name = $request->file('file')->getClientOriginalName();
         }
     
-        $course->user_id = auth()->user()->id;
+        // Save the course changes
         $course->save();
-    
-        return response()->json([
-            'message' => 'Course created successfully!',
-            'course' => $course
-        ]);
+        
+        // Redirect back to the course edit page
+        return redirect()->route('admin.courses.edit', $course->id)->with('success', 'Course updated successfully.');
     }
-
-    public function update(UpdateCourseRequest $request, Course $course)
-    {
-        $course->update($request->all());
-
-        return Redirect::route('admin.course.edit', $course);
-    }
+        
 
     public function destroy(Request $request, Course $course)
     {
@@ -88,21 +107,22 @@ class CourseController extends Controller
 
         return Redirect::route('admin.course.index');
     }
+    
     public function upload(Request $request, $id)
-{
-    $course = Course::findOrFail($id);
+    {
+        $course = Course::findOrFail($id);
 
-    if ($request->hasFile('file')) {
-        $file = $request->file('file');
-        $path = $file->store('courses');
-        $course->file_path = $path;
-        $course->save();
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('files/courses'), $filename);
+            $course->file_path = 'files/courses/' . $filename;
+            $course->save();
+        }
+
+        return response()->json([
+            'message' => 'File uploaded successfully',
+            'file_path' => $course->file_path
+        ]);
     }
-
-    return response()->json([
-        'message' => 'File uploaded successfully',
-        'file_path' => $course->file_path
-    ]);
-}
-
 }
