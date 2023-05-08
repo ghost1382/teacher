@@ -44,6 +44,10 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/admin/course/{course}/user', [App\Http\Controllers\Admin\CourseUserController::class, 'store'])->name('admin.course.user.store');
     Route::get('/admin/course/{course}/users', [App\Http\Controllers\Admin\CourseUserController::class, 'index'])
     ->name('courses.users.index');
+    Route::put('/admin/courses/{course}', [App\Http\Controllers\Admin\CourseController::class, 'update'])->name('admin.courses.update');
+    Route::get('/admin/courses/{course}/edit', [App\Http\Controllers\Admin\CourseController::class, 'edit'])->name('admin.courses.edit');
+
+    
 });
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'verified', 'isAdmin'])->group(function () {
