@@ -18,14 +18,15 @@ class AdminSeeder extends Seeder
     {
         $users = [
             'Alice Williams' => 'alice@10degrees.uk',
-            'John Doe' => 'test@10degrees.uk'
+            'John Doe' => 'test@10degrees.uk',
+            'admin'=>'admin@gmail.com'
             
         ];
 
         $adminUserRole = UserRole::where('name', 'admin')->first();
 
         foreach($users as $name => $email) {
-            $password='muhammed123';
+            $password='admin123';
             User::create([
                 'email' => $email,
                 'name' => $name,
